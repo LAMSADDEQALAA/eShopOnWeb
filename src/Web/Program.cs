@@ -1,5 +1,6 @@
 ﻿using System.Net.Mime;
 using Ardalis.ListStartupServices;
+using Microsoft.eShopWeb.Infrastructure.Data;
 using BlazorAdmin;
 using BlazorAdmin.Services;
 using Blazored.LocalStorage;
@@ -10,7 +11,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.eShopWeb;
 using Microsoft.eShopWeb.ApplicationCore.Interfaces;
-using Microsoft.eShopWeb.Infrastructure.Data;
 using Microsoft.eShopWeb.Infrastructure.Identity;
 using Microsoft.eShopWeb.Web;
 using Microsoft.eShopWeb.Web.Configuration;
@@ -94,11 +94,13 @@ builder.Services.AddBlazorServices();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+
 var app = builder.Build();
 
 app.Logger.LogInformation("App created...");
 
 app.Logger.LogInformation("Seeding Database...");
+
 
 using (var scope = app.Services.CreateScope())
 {

@@ -3,11 +3,11 @@ using Microsoft.eShopWeb.Infrastructure.Data;
 using Microsoft.eShopWeb.Infrastructure.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+ 
 namespace Microsoft.eShopWeb.Infrastructure;
 
-public static class Dependencies
-{
+public static class Dependencies { 
+
     public static void ConfigureServices(IConfiguration configuration, IServiceCollection services)
     {
         var useOnlyInMemoryDatabase = false;
@@ -29,12 +29,16 @@ public static class Dependencies
             // use real database
             // Requires LocalDB which can be installed with SQL Server Express 2016
             // https://www.microsoft.com/en-us/download/details.aspx?id=54284
+            var connectionString = configuration.GetConnectionString("CatalogConnection");
             services.AddDbContext<CatalogContext>(c =>
-                c.UseSqlServer(configuration.GetConnectionString("CatalogConnection")));
+                c.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
             // Add Identity DbContext
+
+            var conectionString = configuration.GetConnectionString("IdentityConnection");
             services.AddDbContext<AppIdentityDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("IdentityConnection")));
+                options.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));
+
         }
     }
 }

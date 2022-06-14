@@ -14,7 +14,7 @@ public partial class FixBuyerId : Migration
             nullable: false,
             defaultValue: "",
             oldClrType: typeof(string),
-            oldType: "nvarchar(max)",
+            oldType: "nvarchar(400)",
             oldNullable: true);
 
         migrationBuilder.AlterColumn<string>(
@@ -33,7 +33,7 @@ public partial class FixBuyerId : Migration
         migrationBuilder.AlterColumn<string>(
             name: "BuyerId",
             table: "Orders",
-            type: "nvarchar(max)",
+            type: "nvarchar(400)",
             nullable: true,
             oldClrType: typeof(string),
             oldType: "nvarchar(256)",
