@@ -17,7 +17,6 @@ public class AppContext : DbContext
     public DbSet<Language> Language { get; set; }
     public DbSet<NFT> NFT { get; set; }
     public DbSet<Picture> Picture { get; set; }
-    public DbSet<Role> Role { get; set; }
     public DbSet<Status> Status { get; set; }
     public DbSet<Template> Template { get; set; }
 

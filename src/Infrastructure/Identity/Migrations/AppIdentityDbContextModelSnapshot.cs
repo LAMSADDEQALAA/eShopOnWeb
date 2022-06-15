@@ -162,8 +162,8 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                     b.Property<string>("Responsible")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("Vat")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Vat")
+                        .HasColumnType("decimal(65,30)");
 
                     b.HasKey("CompanyId");
 
@@ -238,8 +238,8 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                     b.Property<int>("WatchId")
                         .HasColumnType("int");
 
-                    b.Property<string>("is_minted")
-                        .HasColumnType("longtext");
+                    b.Property<bool>("is_minted")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("kalartID")
                         .HasColumnType("longtext");
@@ -274,20 +274,6 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                     b.HasIndex("WatchId");
 
                     b.ToTable("Picture");
-                });
-
-            modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Role", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("role")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("RoleId");
-
-                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Status", b =>
@@ -372,8 +358,8 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                     b.Property<string>("Glass")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Has_Service")
-                        .HasColumnType("longtext");
+                    b.Property<bool>("Has_Service")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Marque")
                         .HasColumnType("longtext");
@@ -402,11 +388,11 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                     b.Property<string>("WaterPoof")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("With_Box")
-                        .HasColumnType("longtext");
+                    b.Property<bool>("With_Box")
+                        .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("With_Paper")
-                        .HasColumnType("longtext");
+                    b.Property<bool>("With_Paper")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("bezel")
                         .HasColumnType("longtext");
@@ -472,9 +458,6 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("longtext");
 
@@ -500,8 +483,6 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -636,15 +617,9 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                         .WithMany()
                         .HasForeignKey("LanguageId");
 
-                    b.HasOne("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId");
-
                     b.Navigation("Company");
 
                     b.Navigation("Language");
-
-                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Document_type", b =>

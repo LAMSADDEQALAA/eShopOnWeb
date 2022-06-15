@@ -11,7 +11,6 @@ public class ApplicationUser : IdentityUser
     public string WalletId { get; private set; }
     public Language Language { get; set; }
     public Company Company { get; set; }
-    public Role Role { get; set; }
     public ICollection<Watch> Watch { get; set; }
     public ICollection<NFT> NFT { get; set; }
 

@@ -44,7 +44,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Adresse = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Vat = table.Column<int>(type: "int", nullable: false)
+                    Vat = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,21 +79,6 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Language", x => x.LanguageId);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Role",
-                columns: table => new
-                {
-                    RoleId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    role = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Role", x => x.RoleId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -151,7 +136,6 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     LanguageId = table.Column<int>(type: "int", nullable: true),
                     CompanyId = table.Column<int>(type: "int", nullable: true),
-                    RoleId = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
@@ -188,11 +172,6 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                         column: x => x.LanguageId,
                         principalTable: "Language",
                         principalColumn: "LanguageId");
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_Role_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Role",
-                        principalColumn: "RoleId");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -316,12 +295,9 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     State = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    With_Paper = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    With_Box = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Has_Service = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    With_Paper = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    With_Box = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Has_Service = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Movement = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Calibre = table.Column<string>(type: "longtext", nullable: true)
@@ -402,8 +378,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     kalartID = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    is_minted = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    is_minted = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     StatusId = table.Column<int>(type: "int", nullable: false),
                     WatchId = table.Column<int>(type: "int", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "varchar(255)", nullable: true)
@@ -522,11 +497,6 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_RoleId",
-                table: "AspNetUsers",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
@@ -626,9 +596,6 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 
             migrationBuilder.DropTable(
                 name: "Language");
-
-            migrationBuilder.DropTable(
-                name: "Role");
         }
     }
 }

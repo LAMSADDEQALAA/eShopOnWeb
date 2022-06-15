@@ -14,5 +14,5 @@ public class Company
     public string Name { get; private set; }
     public string Responsible { get; private set; }
     public string Adresse { get; private set; }
-    public int Vat { get; private set; }
+    public decimal Vat { get; private set; }
 }

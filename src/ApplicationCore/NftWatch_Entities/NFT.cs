@@ -13,7 +13,7 @@ public class NFT
     [Key]
     public int NFTId { get; private set; }
     public string kalartID { get; private set; }
-    public string is_minted { get; private set; }
+    public bool is_minted { get; private set; }
     //has one status
     public int StatusId { get; private set; }
     public Status Status { get; private set; }

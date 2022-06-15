@@ -31,13 +31,13 @@ public class Watch
     public string State { get; private set; }
 
 
-    public string With_Paper { get; private set; }
+    public bool With_Paper { get; private set; }
 
 
-    public string With_Box { get; private set; }
+    public bool With_Box { get; private set; }
 
 
-    public string Has_Service { get; private set; }
+    public bool Has_Service { get; private set; }
 
 
     public string Movement { get; private set; }
