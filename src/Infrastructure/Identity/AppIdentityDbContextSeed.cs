@@ -11,7 +11,7 @@ public class AppIdentityDbContextSeed
     {
 
 
-            identityDbContext.Database.Migrate();
+         identityDbContext.Database.Migrate();
 
 
         await roleManager.CreateAsync(new IdentityRole(BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS));

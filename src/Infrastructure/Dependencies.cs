@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.eShopWeb.Infrastructure.Nft_Data;
 using Microsoft.eShopWeb.Infrastructure.Data;
 using Microsoft.eShopWeb.Infrastructure.Identity;
 using Microsoft.Extensions.Configuration;
@@ -33,9 +34,12 @@ public static class Dependencies {
             services.AddDbContext<CatalogContext>(c =>
                 c.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-            // Add Identity DbContext
-
             var conectionString = configuration.GetConnectionString("IdentityConnection");
+            
+            services.AddDbContext<AppContext>(c =>
+                c.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));    
+
+            // Add Identity DbContext
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));
 
