@@ -13,17 +13,17 @@ namespace Microsoft.eShopWeb.Infrastructure.Data.Migrations
             migrationBuilder.AlterDatabase()
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            //migrationBuilder.CreateSequence(
-            //    name: "catalog_brand_hilo",
-            //    incrementBy: 10);
+            // migrationBuilder.CreateSequence(
+            //     name: "catalog_brand_hilo",
+            //     incrementBy: 10);
 
-            //migrationBuilder.CreateSequence(
-            //    name: "catalog_hilo",
-            //    incrementBy: 10);
+            // migrationBuilder.CreateSequence(
+            //     name: "catalog_hilo",
+            //     incrementBy: 10);
 
-            //migrationBuilder.CreateSequence(
-            //    name: "catalog_type_hilo",
-            //    incrementBy: 10);
+            // migrationBuilder.CreateSequence(
+            //     name: "catalog_type_hilo",
+            //     incrementBy: 10);
 
             migrationBuilder.CreateTable(
                 name: "Baskets",
@@ -223,14 +223,14 @@ namespace Microsoft.eShopWeb.Infrastructure.Data.Migrations
             migrationBuilder.DropTable(
                 name: "Orders");
 
-            //migrationBuilder.DropSequence(
-            //    name: "catalog_brand_hilo");
+            migrationBuilder.DropSequence(
+                name: "catalog_brand_hilo");
 
-            //migrationBuilder.DropSequence(
-            //    name: "catalog_hilo");
+            migrationBuilder.DropSequence(
+                name: "catalog_hilo");
 
-            //migrationBuilder.DropSequence(
-            //    name: "catalog_type_hilo");
+            migrationBuilder.DropSequence(
+                name: "catalog_type_hilo");
         }
     }
 }

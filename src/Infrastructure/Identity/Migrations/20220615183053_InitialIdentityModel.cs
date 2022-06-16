@@ -14,25 +14,6 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "AspNetRoles",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Name = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    NormalizedName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ConcurrencyStamp = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Company",
                 columns: table => new
                 {
@@ -83,6 +64,25 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "role",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Name = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NormalizedName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ConcurrencyStamp = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_role", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Status",
                 columns: table => new
                 {
@@ -98,32 +98,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "AspNetRoleClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    RoleId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ClaimType = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ClaimValue = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
+                name: "user",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -161,14 +136,14 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.PrimaryKey("PK_user", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Company_CompanyId",
+                        name: "FK_user_Company_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Company",
                         principalColumn: "CompanyId");
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Language_LanguageId",
+                        name: "FK_user_Language_LanguageId",
                         column: x => x.LanguageId,
                         principalTable: "Language",
                         principalColumn: "LanguageId");
@@ -176,7 +151,32 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserClaims",
+                name: "role_claim",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    RoleId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ClaimType = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ClaimValue = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_role_claim", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_role_claim_role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "user_claim",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -190,18 +190,18 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
+                    table.PrimaryKey("PK_user_claim", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        name: "FK_user_claim_user_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "user",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserLogins",
+                name: "user_login",
                 columns: table => new
                 {
                     LoginProvider = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -215,18 +215,18 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.PrimaryKey("PK_user_login", x => new { x.LoginProvider, x.ProviderKey });
                     table.ForeignKey(
-                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        name: "FK_user_login_user_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "user",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserRoles",
+                name: "user_role",
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -236,24 +236,24 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_user_role", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        name: "FK_user_role_role_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
+                        principalTable: "role",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        name: "FK_user_role_user_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "user",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserTokens",
+                name: "user_token",
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -267,11 +267,11 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.PrimaryKey("PK_user_token", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
-                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        name: "FK_user_token_user_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "user",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -335,9 +335,9 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 {
                     table.PrimaryKey("PK_Watch", x => x.WatchId);
                     table.ForeignKey(
-                        name: "FK_Watch_AspNetUsers_ApplicationUserId",
+                        name: "FK_Watch_user_ApplicationUserId",
                         column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "user",
                         principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -388,16 +388,16 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 {
                     table.PrimaryKey("PK_NFT", x => x.NFTId);
                     table.ForeignKey(
-                        name: "FK_NFT_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_NFT_Status_StatusId",
                         column: x => x.StatusId,
                         principalTable: "Status",
                         principalColumn: "StatusId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_NFT_user_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "user",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_NFT_Watch_WatchId",
                         column: x => x.WatchId,
@@ -456,53 +456,6 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetRoleClaims_RoleId",
-                table: "AspNetRoleClaims",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "RoleNameIndex",
-                table: "AspNetRoles",
-                column: "NormalizedName",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserClaims_UserId",
-                table: "AspNetUserClaims",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserLogins_UserId",
-                table: "AspNetUserLogins",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserRoles_RoleId",
-                table: "AspNetUserRoles",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "EmailIndex",
-                table: "AspNetUsers",
-                column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_CompanyId",
-                table: "AspNetUsers",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_LanguageId",
-                table: "AspNetUsers",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "UserNameIndex",
-                table: "AspNetUsers",
-                column: "NormalizedUserName",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Document_Document_typeId",
                 table: "Document",
                 column: "Document_typeId",
@@ -536,10 +489,57 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 column: "WatchId");
 
             migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                table: "role",
+                column: "NormalizedName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_role_claim_RoleId",
+                table: "role_claim",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Template_WatchId",
                 table: "Template",
                 column: "WatchId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "user",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_CompanyId",
+                table: "user",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_LanguageId",
+                table: "user",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "user",
+                column: "NormalizedUserName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_claim_UserId",
+                table: "user_claim",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_login_UserId",
+                table: "user_login",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_role_RoleId",
+                table: "user_role",
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Watch_ApplicationUserId",
@@ -550,21 +550,6 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AspNetRoleClaims");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserClaims");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserLogins");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserRoles");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
                 name: "Document");
 
             migrationBuilder.DropTable(
@@ -574,10 +559,22 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 name: "Picture");
 
             migrationBuilder.DropTable(
+                name: "role_claim");
+
+            migrationBuilder.DropTable(
                 name: "Template");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "user_claim");
+
+            migrationBuilder.DropTable(
+                name: "user_login");
+
+            migrationBuilder.DropTable(
+                name: "user_role");
+
+            migrationBuilder.DropTable(
+                name: "user_token");
 
             migrationBuilder.DropTable(
                 name: "Document_type");
@@ -589,7 +586,10 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                 name: "Watch");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "role");
+
+            migrationBuilder.DropTable(
+                name: "user");
 
             migrationBuilder.DropTable(
                 name: "Company");

@@ -4,7 +4,8 @@ using Microsoft.eShopWeb.Infrastructure.Data;
 using Microsoft.eShopWeb.Infrastructure.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
- 
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+
 namespace Microsoft.eShopWeb.Infrastructure;
 
 public static class Dependencies { 
@@ -37,11 +38,13 @@ public static class Dependencies {
             var conectionString = configuration.GetConnectionString("IdentityConnection");
             
             services.AddDbContext<AppContext>(c =>
-                c.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));    
+                c.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString),
+        o => o.SchemaBehavior(MySqlSchemaBehavior.Ignore)));    
 
             // Add Identity DbContext
             services.AddDbContext<AppIdentityDbContext>(options =>
-                options.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));
+                options.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString),
+        o => o.SchemaBehavior(MySqlSchemaBehavior.Ignore)));
 
         }
     }

@@ -6,9 +6,9 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity;
 
 public class ApplicationUser : IdentityUser
 {
-    public string FirstName { get; private set; }
-    public string LastName { get; private set; }
-    public string WalletId { get; private set; }
+    public string FirstName { get;  set; }
+    public string LastName { get;  set; }
+    public string WalletId { get;  set; }
     public Language Language { get; set; }
     public Company Company { get; set; }
     public ICollection<Watch> Watch { get; set; }

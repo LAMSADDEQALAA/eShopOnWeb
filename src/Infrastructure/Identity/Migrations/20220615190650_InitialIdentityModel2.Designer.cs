@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.eShopWeb.Infrastructure.Identity;
 
@@ -10,9 +11,10 @@ using Microsoft.eShopWeb.Infrastructure.Identity;
 namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    partial class AppIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220615190650_InitialIdentityModel2")]
+    partial class InitialIdentityModel2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,7 +178,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("DocumentTypeId")
+                    b.Property<int>("Document_typeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Picture")
@@ -187,7 +189,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 
                     b.HasKey("DocumentId");
 
-                    b.HasIndex("DocumentTypeId")
+                    b.HasIndex("Document_typeId")
                         .IsUnique();
 
                     b.HasIndex("WatchId");
@@ -195,18 +197,18 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                     b.ToTable("Documents", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.DocumentType", b =>
+            modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Document_type", b =>
                 {
-                    b.Property<int>("DocumentTypeId")
+                    b.Property<int>("Document_typeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("Type")
                         .HasColumnType("longtext");
 
-                    b.HasKey("DocumentTypeId");
+                    b.HasKey("Document_typeId");
 
-                    b.ToTable("DocumentTypes", (string)null);
+                    b.ToTable("Document_types", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Language", b =>
@@ -540,9 +542,9 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 
             modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Document", b =>
                 {
-                    b.HasOne("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.DocumentType", "DocumentType")
+                    b.HasOne("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Document_type", "Document_type")
                         .WithOne("Document")
-                        .HasForeignKey("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Document", "DocumentTypeId")
+                        .HasForeignKey("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Document", "Document_typeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -550,7 +552,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                         .WithMany("Documents")
                         .HasForeignKey("WatchId");
 
-                    b.Navigation("DocumentType");
+                    b.Navigation("Document_type");
 
                     b.Navigation("Watch");
                 });
@@ -622,7 +624,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                     b.Navigation("Language");
                 });
 
-            modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.DocumentType", b =>
+            modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Document_type", b =>
                 {
                     b.Navigation("Document");
                 });

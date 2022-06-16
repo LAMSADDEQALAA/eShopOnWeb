@@ -13,8 +13,8 @@ public class Document
     public int DocumentId { get; private set; }   
     public string Picture { get; private set; }
     //has one type
-    public int Document_typeId { get; private set; }
-    public Document_type Document_type { get; private set; }
+    public int DocumentTypeId { get; private set; }
+    public DocumentType DocumentType { get; private set; }
     //belongs to a watch
     public Watch Watch { get; private set; }
 }

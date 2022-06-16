@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.eShopWeb.Infrastructure.Identity;
 
@@ -10,9 +11,10 @@ using Microsoft.eShopWeb.Infrastructure.Identity;
 namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    partial class AppIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220615183053_InitialIdentityModel")]
+    partial class InitialIdentityModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +44,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("role", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -65,7 +67,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleClaims", (string)null);
+                    b.ToTable("role_claim", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -88,7 +90,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserClaims", (string)null);
+                    b.ToTable("user_claim", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -110,7 +112,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLogins", (string)null);
+                    b.ToTable("user_login", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -125,7 +127,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("user_role", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -144,7 +146,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("UserTokens", (string)null);
+                    b.ToTable("user_token", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Company", b =>
@@ -167,7 +169,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 
                     b.HasKey("CompanyId");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Company");
                 });
 
             modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Document", b =>
@@ -176,7 +178,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("DocumentTypeId")
+                    b.Property<int>("Document_typeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Picture")
@@ -187,26 +189,26 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 
                     b.HasKey("DocumentId");
 
-                    b.HasIndex("DocumentTypeId")
+                    b.HasIndex("Document_typeId")
                         .IsUnique();
 
                     b.HasIndex("WatchId");
 
-                    b.ToTable("Documents", (string)null);
+                    b.ToTable("Document");
                 });
 
-            modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.DocumentType", b =>
+            modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Document_type", b =>
                 {
-                    b.Property<int>("DocumentTypeId")
+                    b.Property<int>("Document_typeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("Type")
                         .HasColumnType("longtext");
 
-                    b.HasKey("DocumentTypeId");
+                    b.HasKey("Document_typeId");
 
-                    b.ToTable("DocumentTypes", (string)null);
+                    b.ToTable("Document_type");
                 });
 
             modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Language", b =>
@@ -220,7 +222,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 
                     b.HasKey("LanguageId");
 
-                    b.ToTable("Languages", (string)null);
+                    b.ToTable("Language");
                 });
 
             modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.NFT", b =>
@@ -254,7 +256,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                     b.HasIndex("WatchId")
                         .IsUnique();
 
-                    b.ToTable("NFTs", (string)null);
+                    b.ToTable("NFT");
                 });
 
             modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Picture", b =>
@@ -273,7 +275,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 
                     b.HasIndex("WatchId");
 
-                    b.ToTable("Pictures", (string)null);
+                    b.ToTable("Picture");
                 });
 
             modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Status", b =>
@@ -287,7 +289,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 
                     b.HasKey("StatusId");
 
-                    b.ToTable("Status", (string)null);
+                    b.ToTable("Status");
                 });
 
             modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Template", b =>
@@ -313,7 +315,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                     b.HasIndex("WatchId")
                         .IsUnique();
 
-                    b.ToTable("Templates", (string)null);
+                    b.ToTable("Template");
                 });
 
             modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Watch", b =>
@@ -401,7 +403,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("Watches", (string)null);
+                    b.ToTable("Watch");
                 });
 
             modelBuilder.Entity("Microsoft.eShopWeb.Infrastructure.Identity.ApplicationUser", b =>
@@ -484,7 +486,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("user", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -540,9 +542,9 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
 
             modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Document", b =>
                 {
-                    b.HasOne("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.DocumentType", "DocumentType")
+                    b.HasOne("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Document_type", "Document_type")
                         .WithOne("Document")
-                        .HasForeignKey("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Document", "DocumentTypeId")
+                        .HasForeignKey("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Document", "Document_typeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -550,7 +552,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                         .WithMany("Documents")
                         .HasForeignKey("WatchId");
 
-                    b.Navigation("DocumentType");
+                    b.Navigation("Document_type");
 
                     b.Navigation("Watch");
                 });
@@ -622,7 +624,7 @@ namespace Microsoft.eShopWeb.Infrastructure.Identity.Migrations
                     b.Navigation("Language");
                 });
 
-            modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.DocumentType", b =>
+            modelBuilder.Entity("Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities.Document_type", b =>
                 {
                     b.Navigation("Document");
                 });

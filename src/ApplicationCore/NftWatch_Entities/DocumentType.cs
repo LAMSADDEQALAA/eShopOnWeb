@@ -7,10 +7,10 @@ using Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.eShopWeb.ApplicationCore.NftWatch_Entities;
-public class Document_type
+public class DocumentType
 {
     [Key]
-    public int Document_typeId { get; private set; }
+    public int DocumentTypeId { get; private set; }
     public string Type { get; private set; }
       //belongs to a document  
     public Document Document { get; set; }
